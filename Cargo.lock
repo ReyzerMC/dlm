@@ -3,17 +3,6 @@
 version = 4
 
 [[package]]
-name = "DownloadManager"
-version = "0.1.0"
-dependencies = [
- "clap",
- "futures-util",
- "indicatif",
- "reqwest",
- "tokio",
-]
-
-[[package]]
 name = "anstream"
 version = "0.6.21"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -258,6 +247,17 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
+]
+
+[[package]]
+name = "dlm"
+version = "0.1.0"
+dependencies = [
+ "clap",
+ "futures-util",
+ "indicatif",
+ "reqwest",
+ "tokio",
 ]
 
 [[package]]

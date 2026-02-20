@@ -19,14 +19,18 @@
 git clone https://github.com/ReyzerMC/dlm.git
 cd dlm
 ```
+Dependencies:
+
+`cargo` to compile
 
 ---
 
-2. Copy to /usr/bin/ folder (Optional)
+2. Compile the project with cargo
 
 ```bash
-sudo cp ./dlm /usr/bin/
+cargo clean && cargo build --release # Output is at ./target/release/dlm
 ```
+
 ---
 
 ## Usage:
