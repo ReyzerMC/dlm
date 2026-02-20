@@ -8,10 +8,10 @@ use futures_util::StreamExt;
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
 struct Args {
-    /// URL del archivo
+    /// File URL
     url: String,
 
-    /// Nombre del archivo de salida
+    /// Output file
     #[arg(short, long)]
     output: Option<String>
 }
@@ -33,16 +33,16 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let res = client.get(&args.url).send().await?;
 
     if !res.status().is_success() {
-        return Err(format!("Error del servidor: {}", res.status()).into());
+        return Err(format!("Server Error: {}", res.status()).into());
     }
 
-    let total_size = res.content_length().ok_or("No se pudo obtener el tamaño de la descarga")?;
+    let total_size = res.content_length().ok_or("The download size could not be obtained.")?;
 
     let pb = ProgressBar::new(total_size);
     pb.set_style(ProgressStyle::default_bar()
         .template("{msg}\n{spinner:.green} [{elapsed_precise}] [{wide_bar:.cyan/blue}] {bytes}/{total_bytes} ({eta})")?
         .progress_chars("#>-"));
-    pb.set_message(format!("Guardando en: {}", file_name));
+    pb.set_message(format!("Saving in: {}", file_name));
 
     let mut file = File::create(&file_name)?;
     let mut downloaded: u64 = 0;
@@ -57,6 +57,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         pb.set_position(new);
     }
 
-    pb.finish_with_message(format!("Hecho, archivo guardado como {}", file_name));
+    pb.finish_with_message(format!("Done, file saved as {}", file_name));
     Ok(())
 }
